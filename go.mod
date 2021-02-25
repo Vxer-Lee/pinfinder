@@ -1,5 +1,7 @@
 module github.com/gwatts/pinfinder
 
+go 1.15
+
 require (
 	github.com/DHowett/go-plist v0.0.0-20180609054337-500bd5b9081b
 	github.com/chiefbrain/ios v0.0.0-20170407113533-c740def7cc9f // indirect

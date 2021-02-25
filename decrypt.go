@@ -14,9 +14,10 @@ var (
 	decryptEnabled = true
 )
 
-func decrypt(backupDir string, b *backup) {
-	pw := getpw()
-	if pw == "" {
+func decrypt(backupDir string, b *backup, pwd string) {
+	//pw := getpw()
+	//pw := "123456"
+	if pwd == "" {
 		b.Status = msgIsEncrypted
 		return
 	}
@@ -25,7 +26,7 @@ func decrypt(backupDir string, b *backup) {
 		b.Status = "Failed to open backup: " + err.Error()
 		return
 	}
-	if err := encbw.SetPassword(pw); err != nil {
+	if err := encbw.SetPassword(pwd); err != nil {
 		b.Status = msgIncorrectPassword
 		return
 	}
@@ -33,6 +34,8 @@ func decrypt(backupDir string, b *backup) {
 		b.Status = err.Error()
 		return
 	}
+	//fmt.Println(encbw.Dir)
+
 	if b.isIOS12() {
 		b.UsesScreenTime = true
 		kc, err := keychain.Load(encbw)
